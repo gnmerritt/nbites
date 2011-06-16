@@ -755,11 +755,12 @@ void StepGenerator::setDestination(const float rel_x, const float rel_y,
 	hasDestination = true;
 
 #ifdef DEBUG_STEPGENERATOR
-	printf("Making %d steps of (%f,%f,%f)\n", numberSteps+1, x_vel, y_vel, thetaPerStep);
+	printf("Making %d steps of (%f,%f,%f)\n", numberSteps, x_vel, y_vel, thetaPerStep);
 #endif
 
 	// use takeSteps to do the dirty work
-	takeSteps(x_vel, y_vel, thetaPerStep, numberSteps+1);
+	takeSteps(x_vel, y_vel, thetaPerStep, numberSteps);
+    takeSteps(x_vel*.5f, y_vel*.5f, thetaPerStep*.5f, 1);
 }
 
 /**

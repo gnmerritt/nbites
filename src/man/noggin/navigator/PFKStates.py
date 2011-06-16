@@ -40,18 +40,35 @@ def pfk_all(nav):
         nav.stopTheta = True
         nav.stopY = False
         nav.stopX = False
-        #print "entered from: ", nav.lastDiffState
 
-    # get our ideal relative positionings from the kick
-    (x_offset, y_offset, heading) = nav.kick.getPosition()
+        print "entered PFK from: ", nav.lastDiffState
 
-    ball = nav.brain.ball
+        # get our ideal relative final position from the ball
+        (x_offset, y_offset, heading) = nav.kick.getPosition()
+
+        ball = nav.brain.ball
+
+        to_x = ball.relX - x_offset
+        to_y = ball.relY - y_offset
+        to_theta = ball.bearing - heading
+
+        print 'Ball relative loc: {0} {1} {2}'.format(ball.relX,
+                                                      ball.relY,
+                                                      ball.bearing)
+
+        print 'Moving to destination {0} {1} {2}'.format(to_x,
+                                                         to_y,
+                                                         to_theta)
+
+        nav.setDest(to_x, to_y, to_theta)
+
+    return nav.stay()
 
     """
+
     # determine the theta speed if our position isn't good enough
     if not nav.stopTheta:
         sTheta = pfk_theta(nav, ball, heading)
-    """
 
     # determine the y speed if our position isn't good enough
     if not nav.stopY:
@@ -74,6 +91,7 @@ def pfk_all(nav):
     helper.setSlowSpeed(nav, sX, sY, sTheta)
 
     return nav.stay()
+    """
 
 """
 Determines the speed in the theta direction to position

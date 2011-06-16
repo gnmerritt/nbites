@@ -202,7 +202,7 @@ def positionForKick(player):
         return player.goLater('scanFindBall')
     elif transitions.shouldSpinToKick(player):
         return player.goLater('spinToKick')
-    if transitions.shouldChaseFromPositionForKick(player):
+    if transitions.shouldChaseFromPositionForKick(player) and False:
         player.inKickingState = False
         return player.goLater('chase')
     if not player.brain.play.isRole(GOALIE):
