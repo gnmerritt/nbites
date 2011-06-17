@@ -33,6 +33,10 @@ public:
     // Update functions
     void updateModel(RangeBearingMeasurement  ball, PoseEst p);
     void reset();
+
+    // Ball Variance Monitor
+    void updateBallVarianceData();
+
     // Getters
     /**
      * @return The current estimate of the ball x position
