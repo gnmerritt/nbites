@@ -1135,6 +1135,14 @@ void Ball::setBallInfo(int w, int h, VisualBall *thisBall, estimate e) {
 																	  ORANGE_BALL_RADIUS,
 																	  thisBall->getRadius(),
 																	  ORANGE_BALL_RADIUS).dist<<endl;*/
+
+    updateBallVarianceData();
+
+}
+
+void Ball::updateBallVarianceData()
+{
+    // For sending updated Ball X/Y/Distance to a Ball monitor
 }
 
 /* Misc. routines

@@ -36,6 +36,7 @@ class Ball; // forward reference
 #include "Field.h"
 #include "VisualBall.h"
 #include "Vision.h"
+#include "BulkMonitor.h"
 
 
 //constants to constrain blob and point amounts
@@ -108,6 +109,10 @@ public:
     void printBlob(Blob b);
     void paintRun(int x,int y, int h, int c);
     void drawRun(const run& run, int c);
+
+    // ball variance updating class
+    void updateBallVarianceData();
+
 #ifdef OFFLINE
 	void setDebugBall(bool debugBall) {BALLDEBUG = debugBall;}
 	void setDebugBallDistance(bool debug) {BALLDISTDEBUG = debug;}
@@ -129,6 +134,9 @@ private:
     int numberOfRuns;
     int indexOfBiggestRun;
     run* runs;
+
+    // Variance Monitor for the Ball
+    BulkMonitor ballVariance;
 
     Blob *topBlob, zeroBlob;
     //Blob checker, obj, pole, leftBox, rightBox;
