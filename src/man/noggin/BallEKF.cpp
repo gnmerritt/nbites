@@ -171,6 +171,13 @@ void BallEKF::updateModel(RangeBearingMeasurement  ball, PoseEst p)
         cout << "\tBallEKF reset to " << *this << endl;
         cout << "\tObservation was: " << ball << endl;
     }
+
+    updateBallVarianceData();
+}
+
+void BallEKF::updateBallVarianceData()
+{
+    // For passing in the data for the ball X/Y/VELX/VELY
 }
 
 /**
