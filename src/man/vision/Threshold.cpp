@@ -247,6 +247,9 @@ void Threshold::runs() {
     // back when the robots had colored shoulder pads we worried about seeing them
     detectSelf();
 #endif
+	for (int i = IMAGE_HEIGHT - 1; i >= 0; i--) {
+		pixDistance[i] = vision->pose->pixEstimate(IMAGE_WIDTH / 2, i, 0.0).dist;
+	}
     for (int i = 0; i < NUMBLOCKS; i++) {
         block[i] = 0;
         evidence[i] = 0;
@@ -934,6 +937,10 @@ void Threshold::objectRecognition() {
     }
 
     storeFieldObjects();
+	if (vision->ball->getWidth() > 0 && vision->ball->getDistance() > 15.0f &&
+		vision->ball->getHeat() < 1.0f) {
+		context->checkForKickDangerNoRobots();
+	}
 
 }
 
@@ -1125,13 +1132,20 @@ void Threshold::setVisualRobotInfo(VisualRobot *objPtr) {
 
         // sets focal distance of the field object
         objPtr->setFocDist(objPtr->getDistance());
-        // convert dist + angle estimates to body center
-        estimate obj_est = pose->bodyEstimate(objPtr->getCenterX(),
-                                              objPtr->getCenterY(),
-                                              objPtr->getDistance());
-        objPtr->setDistanceWithSD(obj_est.dist);
-        objPtr->setBearingWithSD(obj_est.bearing);
-        objPtr->setElevation(obj_est.elevation);
+		estimate pose_est = pose->pixEstimate(objPtr->getCenterX(),
+											  objPtr->getCenterY(),
+											  265.0f);
+		// convert dist + angle estimates to body center
+		estimate obj_est = pose->bodyEstimate(objPtr->getCenterX(),
+											  objPtr->getCenterY(),
+											  pose_est.dist);
+		objPtr->setDistanceWithSD(obj_est.dist);
+		objPtr->setBearingWithSD(obj_est.bearing);
+		objPtr->setElevation(obj_est.elevation);
+		// now that we have the robot information check if it might kick
+		if (vision->ball->getWidth() > 0) {
+			context->checkForKickDanger(objPtr);
+		}
     } else {
         objPtr->setFocDist(0.0);
         objPtr->setDistanceWithSD(0.0);
@@ -1322,7 +1336,7 @@ void Threshold::initTable(std::string filename) {
         }
 
 #ifndef OFFLINE
-    print("Loaded colortable %s",filename.c_str());
+    print("Loaded colortable %s\n",filename.c_str());
 #endif
 
     fclose(fp);

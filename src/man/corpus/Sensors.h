@@ -20,6 +20,7 @@
 
 #ifndef Sensors_H
 #define Sensors_H
+#include <string>
 #include <vector>
 #include <list>
 #include <pthread.h>
@@ -29,11 +30,18 @@
 #include "SensorConfigs.h"
 #include "NaoDef.h"
 #include "VisionDef.h"
+#include "Provider.h"
 #include "BulkMonitor.h"
 
 enum SupportFoot {
     LEFT_SUPPORT = 0,
     RIGHT_SUPPORT
+};
+
+enum SENSORS_EVENT {
+    NEW_MOTION_SENSORS = 1,
+    NEW_VISION_SENSORS,
+    NEW_IMAGE
 };
 
 struct FSR {
@@ -84,7 +92,7 @@ struct Inertial {
 };
 
 
-class Sensors {
+class Sensors : public Provider{
     //friend class Man;
 public:
     Sensors();
@@ -178,12 +186,15 @@ public:
     //   its own, and there is no way, even with locking, to guarantee that the
     //   underlying data at the image pointer location is not modified while
     //   the image is locked in Sensors.
-    const uint8_t* getNaoImage () const;
+    uint8_t* getRawNaoImage();
+    const uint8_t* getNaoImage() const;
     const uint16_t* getYImage() const;
     const uint16_t* getImage() const;
     const uint16_t* getUVImage() const;
     const uint8_t* getColorImage() const;
-    void setNaoImage(const uint8_t *img);
+    void setNaoImagePointer(char* img);
+    void setNaoImage(const uint8_t* img);
+    void setRawNaoImage(uint8_t *img);
     void setImage(const uint16_t* img);
     void lockImage() const;
     void releaseImage() const;
@@ -254,7 +265,9 @@ private:
     float ultraSoundDistanceRight;
 
     const uint16_t *yImage, *uvImage;
-    const uint8_t *colorImage, *naoImage;
+    const uint8_t *colorImage;
+    const uint8_t *naoImage;
+    uint8_t *rawNaoImage;
 
     // Pose needs to know which foot is on the ground during a vision frame
     // If both are on the ground (DOUBLE_SUPPORT_MODE/not walking), we assume
@@ -267,7 +280,7 @@ private:
      */
 
     // Sensor variance/health monitor
-    BulkMonitor varianceMonitor;
+    BulkMonitor varianceMonitor, fsrMonitor;
 
     Inertial unfilteredInertial;
     //ChestButton

@@ -43,8 +43,9 @@ public:
     BulkMonitor(int _numberMonitors, string _bulkName, const string _sensorNames[]);
     ~BulkMonitor();
 
-    // this method
     double update(int sensor, double input);
+
+    SensorMonitor& Sensor(int sensor);
 
     void Reset();
     void LogOutput();
@@ -52,7 +53,7 @@ public:
 private:
     SensorMonitor* monitors;
     int numberMonitors;
-    string bulkName; // output file we log to in /tmp/
+    string bulkName; // output file we log to in /home/nao/naoqi/log/
 };
 
 #endif

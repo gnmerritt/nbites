@@ -43,26 +43,37 @@ static const int numberOfBins = 25;
 class SensorMonitor : public Filter
 {
 public:
-	SensorMonitor();
-	SensorMonitor(std::string sensorName);
-	~SensorMonitor();
+    SensorMonitor();
+    SensorMonitor(std::string sensorName);
+    ~SensorMonitor();
 
 	double X(double);
 	void Reset();
-	void LogOutput(); 	// prints histograms to /tmp/{sensorName}.sensor
+	void LogOutput(); // prints histograms to /home/nao/naoqi/log/{sensorName}.sensor
 
-	const int numberOfBins() const { return monitor.NumberOfBins(); }
-	const double binMidPoint(int index) const;
-	const int binCountAt(int index) const;
+    // values outside will cause a print statement
+    void setVarianceBounds(float low, float high);
+    void disableErrors() { reportErrors = false; }
 
-	const std::string SensorName() const { return sensorName; }
-	void SensorName(std::string name) { sensorName = name; }
+    static const int DONT_CHECK = -1;
+
+    const int numberOfBins() const { return monitor.NumberOfBins(); }
+    const double binMidPoint(int index) const;
+    const int binCountAt(int index) const;
+
+    const std::string SensorName() const { return sensorName; }
+    void SensorName(std::string name) { sensorName = name; }
 
 private:
-	std::string sensorName;
-	NoiseMeter<Butterworth> noise;
-	SignalMonitor monitor;
-	int steadyAtFrame;
+    void reportSensorError();
+
+    std::string sensorName;
+    NoiseMeter<Butterworth> noise;
+    SignalMonitor monitor;
+    int steadyAtFrame;
+    bool reportErrors; // warn if sensor variances exceed thresholds
+    float lowVariance, highVariance;
+    int seenErrors;
 };
 
 
