@@ -82,22 +82,22 @@ public:
     /**
      * @param val The new estimate of the ball x position
      */
-    void setXEst(float val) { xhat_k(0) = val; }
+    void setXEst(float val);
 
     /**
      * @param val The new estimate of the ball y position
      */
-    void setYEst(float val) { xhat_k(1) = val; }
+    void setYEst(float val);
 
     /**
      * @param val The new estimate of the ball x velocity
      */
-    void setXVelocityEst(float val) { xhat_k(2) = val; }
+    void setXVelocityEst(float val);
 
     /**
      * @param val The new estimate of the ball y velocity
      */
-    void setYVelocityEst(float val) { xhat_k(3) = val; }
+    void setYVelocityEst(float val);
 
     /**
      * @param val The new uncertainty for ball x position

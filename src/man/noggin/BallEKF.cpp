@@ -329,6 +329,8 @@ void BallEKF::beforeCorrectionFinish(void)
 /**
  * Method to ensure that the ball estimate does have any unrealistic values
  */
+
+// WE DONT USE THIS?
 void BallEKF::limitAPrioriEst()
 {
     if(xhat_k_bar(2) > VELOCITY_EST_MAX) {
@@ -514,6 +516,8 @@ void BallEKF::limitPosteriorUncert()
 /**
  * Method to use the estimate ellipse to intelligently clip the ball estimate
  */
+
+/// WE DONT USE THIS?
 void BallEKF::clipBallEstimate()
 {
     // Limit our X estimate
@@ -570,3 +574,40 @@ void BallEKF::clipBallEstimate()
     }
 
 }
+
+/**
+ * @param val The new estimate of the ball x position
+ */
+BallEKF::setXEst(float val)
+{
+    xhat_k(0) = val;
+    updateBallVarianceData();
+}
+
+/**
+ * @param val The new estimate of the ball y position
+ */
+BallEKF::setYEst(float val)
+{
+    xhat_k(1) = val;
+    updateBallVarianceData();
+}
+
+/**
+ * @param val The new estimate of the ball x velocity
+ */
+BallEKF::setXVelocityEst(float val)
+{
+    xhat_k(2) = val;
+    updateBallVarianceData();
+}
+
+/**
+ * @param val The new estimate of the ball y velocity
+ */
+BallEKF::setYVelocityEst(float val)
+{
+    xhat_k(3) = val;
+    updateBallVarianceData();
+}
+
