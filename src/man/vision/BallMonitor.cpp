@@ -35,7 +35,7 @@ double update(float x, float y, float dist)
 
 double update(float x, float y, float velx, float vely)
 {
-    int i = 3;
+    int i = 3; // see above
     monitor.update(i, x);
     monitor.update(++i, y);
     monitor.update(++i, velx);

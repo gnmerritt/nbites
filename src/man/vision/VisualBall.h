@@ -24,7 +24,7 @@ public:
 
     //BallMonitor
     BallMonitor ballVariance;
-    void Ball::updateBallVarianceData()
+    void updateBallVarianceData();
 
     // Setters
     void setRadius(float r) { radius = r; }

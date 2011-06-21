@@ -1,10 +1,7 @@
 #ifndef BALL_MONITOR_H
-#definte BALL_MONITOR_H
+#define BALL_MONITOR_H
 
 #include "BulkMonitor.h"
-#include "Ball.h"
-#include "BallEKF.h"
-
 
 class BallMonitor
 {

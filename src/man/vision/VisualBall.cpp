@@ -6,6 +6,7 @@
 #include "math.h"
 
 VisualBall::VisualBall()
+    : ballVariance()
 {
     init();
 }
@@ -51,7 +52,7 @@ void VisualBall::setBearingWithSD(float _bearing)
 }
 
 // passing data to the ballMonitor
-void Ball::updateBallVarianceData()
+void VisualBall::updateBallVarianceData()
 {
     ballVariance.update(getX(), getY(), getDistance());
 }
