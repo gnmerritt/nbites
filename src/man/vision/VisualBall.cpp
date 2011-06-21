@@ -49,3 +49,9 @@ void VisualBall::setBearingWithSD(float _bearing)
     bearing = _bearing;
     setBearingSD(ballBearingToSD(_bearing));
 }
+
+// passing data to the ballMonitor
+void Ball::updateBallVarianceData()
+{
+    ballVariance.update(getX(), getY(), getDistance());
+}

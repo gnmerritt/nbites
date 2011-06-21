@@ -16,13 +16,14 @@ public:
     BallMonitor();
     ~BallMonitor();
 
-    double update(int sensor, double input);
+    double update(float x, float y);
+    double update(float x, float y, float velx, float vely);
 
     void Reset();
     void LogOutput();
 
 private:
-    BulkMonitor* monitor;
+    BulkMonitor monitor;
 
 
 #endif

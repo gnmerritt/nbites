@@ -5,6 +5,7 @@
 #include "Structs.h"
 #include "VisionDef.h"
 #include "VisualDetection.h"
+#include "BallMonitor.h"
 
 class VisualBall; // forward reference
 
@@ -20,6 +21,10 @@ public:
 
     // VisualBall VOID Functions
     void init();
+
+    //BallMonitor
+    BallMonitor ballVariance;
+    void Ball::updateBallVarianceData()
 
     // Setters
     void setRadius(float r) { radius = r; }

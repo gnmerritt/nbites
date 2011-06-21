@@ -174,10 +174,11 @@ void BallEKF::updateModel(RangeBearingMeasurement  ball, PoseEst p)
 
     updateBallVarianceData();
 }
-
+// passing data to the ballMonitor
 void BallEKF::updateBallVarianceData()
 {
-    // For passing in the data for the ball X/Y/VELX/VELY
+    ballVariance.update(getXEst(), getYEst(), getXVelocityEst(),
+                       getYVelocityEst())
 }
 
 /**
