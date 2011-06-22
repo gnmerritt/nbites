@@ -133,8 +133,6 @@ void Threshold::visionLoop() {
     if (vision->ygCrossbar->getWidth() > 0) {
         setShot(vision->ygCrossbar);
     }
-
-    vision->ball->updateBallVariance();
     // for now we also don't use open field information
     // field->openDirection(horizon, pose.get());
 

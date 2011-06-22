@@ -1,31 +1,32 @@
 #include "BallMonitor.h"
 #include <string>
 
+
 static const int NUM_MONITORS = 7;
 
 // names of different sensors (for variance monitoring)
-const std::string sensorNames[] = {
+const std::string sensorNames[NUM_MONITORS] = {
     "ballX", "ballY", "ballDist", "ekfX", "ekfY", "velX", "velY"
 };
 
 
 BallMonitor::BallMonitor()
-    : monitor(BulkMonitor(NUM_MONITORS,"BallMonitor", sensorNames[]))
+    : monitor(NUM_MONITORS,"BallMonitor", sensorNames)
 {
 
 }
 
-void Reset()
+void BallMonitor::Reset()
 {
     monitor.Reset();
 }
 
-void LogOutput()
+void BallMonitor::LogOutput()
 {
     monitor.LogOutput();
 }
 
-double update(float x, float y, float dist)
+void BallMonitor::update(float x, float y, float dist)
 {
     int i = 0;
     monitor.update(i, x);
@@ -33,13 +34,13 @@ double update(float x, float y, float dist)
     monitor.update(++i, dist);
 }
 
-double update(float x, float y, float velx, float vely)
+void BallMonitor::update(float x, float y, float velx, float vely)
 {
     int i = 3; // see above
     monitor.update(i, x);
     monitor.update(++i, y);
     monitor.update(++i, velx);
-    monitor.update(++i, vely)
+    monitor.update(++i, vely);
 
 }
 

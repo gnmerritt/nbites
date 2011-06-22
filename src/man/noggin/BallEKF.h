@@ -34,9 +34,6 @@ public:
     void updateModel(RangeBearingMeasurement  ball, PoseEst p);
     void reset();
 
-    // Ball Variance Monitor
-    void updateBallVarianceData();
-
     // Getters
     /**
      * @return The current estimate of the ball x position
@@ -82,22 +79,22 @@ public:
     /**
      * @param val The new estimate of the ball x position
      */
-    void setXEst(float val);
+    void setXEst(float val) { xhat_k(0) = val; }
 
     /**
      * @param val The new estimate of the ball y position
      */
-    void setYEst(float val);
+    void setYEst(float val) { xhat_k(1) = val; }
 
     /**
      * @param val The new estimate of the ball x velocity
      */
-    void setXVelocityEst(float val);
+    void setXVelocityEst(float val) { xhat_k(2) = val;}
 
     /**
      * @param val The new estimate of the ball y velocity
      */
-    void setYVelocityEst(float val);
+    void setYVelocityEst(float val) { xhat_k(3) = val; }
 
     /**
      * @param val The new uncertainty for ball x position

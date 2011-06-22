@@ -172,13 +172,6 @@ void BallEKF::updateModel(RangeBearingMeasurement  ball, PoseEst p)
         cout << "\tObservation was: " << ball << endl;
     }
 
-    updateBallVarianceData();
-}
-// passing data to the ballMonitor
-void BallEKF::updateBallVarianceData()
-{
-    ballVariance.update(getXEst(), getYEst(), getXVelocityEst(),
-                       getYVelocityEst())
 }
 
 /**
@@ -574,40 +567,3 @@ void BallEKF::clipBallEstimate()
     }
 
 }
-
-/**
- * @param val The new estimate of the ball x position
- */
-BallEKF::setXEst(float val)
-{
-    xhat_k(0) = val;
-    updateBallVarianceData();
-}
-
-/**
- * @param val The new estimate of the ball y position
- */
-BallEKF::setYEst(float val)
-{
-    xhat_k(1) = val;
-    updateBallVarianceData();
-}
-
-/**
- * @param val The new estimate of the ball x velocity
- */
-BallEKF::setXVelocityEst(float val)
-{
-    xhat_k(2) = val;
-    updateBallVarianceData();
-}
-
-/**
- * @param val The new estimate of the ball y velocity
- */
-BallEKF::setYVelocityEst(float val)
-{
-    xhat_k(3) = val;
-    updateBallVarianceData();
-}
-

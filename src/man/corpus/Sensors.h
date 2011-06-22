@@ -32,6 +32,7 @@
 #include "VisionDef.h"
 #include "Provider.h"
 #include "BulkMonitor.h"
+#include "BallMonitor.h"
 
 enum SupportFoot {
     LEFT_SUPPORT = 0,
@@ -218,6 +219,11 @@ public:
     // writes data collected the variance monitor to /tmp/
     void writeVarianceData();
 
+    BallMonitor& BallVariance() {
+        BallMonitor& ref = ballVariance;
+        return ref;
+    }
+
 private:
     void add_to_module();
 
@@ -281,6 +287,7 @@ private:
 
     // Sensor variance/health monitor
     BulkMonitor varianceMonitor, fsrMonitor;
+    BallMonitor ballVariance;
 
     Inertial unfilteredInertial;
     //ChestButton

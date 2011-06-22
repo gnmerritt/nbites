@@ -9,13 +9,15 @@ public:
 
     BallMonitor();
 
-    double update(float x, float y, float dist);
-    double update(float x, float y, float velx, float vely);
+    void update(float x, float y, float dist);
+    void update(float x, float y, float velx, float vely);
 
     void Reset();
     void LogOutput();
 
 private:
     BulkMonitor monitor;
+
+};
 
 #endif

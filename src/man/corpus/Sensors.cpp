@@ -53,6 +53,7 @@ Sensors::Sensors ()
       motionBodyAngles(NUM_ACTUATORS),
       bodyAnglesError(NUM_ACTUATORS),
       bodyTemperatures(NUM_ACTUATORS,0.0f),
+      ballVariance(),
       leftFootFSR(),
       rightFootFSR(leftFootFSR),
       leftFootBumper(0.0f, 0.0f),
@@ -938,6 +939,7 @@ void Sensors::writeVarianceData() {
     cout << "Logging variance data to /tmp/" << endl;
     varianceMonitor.LogOutput();
     fsrMonitor.LogOutput();
+    ballVariance.LogOutput();
 
     pthread_mutex_unlock(&variance_mutex);
 }
