@@ -42,6 +42,8 @@ class BulkMonitor
 public:
     BulkMonitor(boost::shared_ptr<Speech> s,
 		int _numberMonitors, string _bulkName, const string _sensorNames[]);
+    BulkMonitor( int _numberMonitors, string _bulkName,
+                 const string _sensorNames[]);
     ~BulkMonitor();
 
     double update(int sensor, double input);

@@ -264,15 +264,19 @@ void Noggin::runStep ()
     updateLocalization();
     PROF_EXIT(profiler, P_LOC);
 
-    sensors->BallVariance().update(vision->ball->getX(),
-                        vision->ball->getY(),
-                        vision->ball->getDistance());
+    if (vision->ball->isOn()){
+        sensors->BallVariance().update(vision->ball->getX(),
+                                       vision->ball->getY(),
+                                       vision->ball->getDistance());
+    }
 
 #   endif //RUN_LOCALIZATION
 
-    sensors->BallVariance().update(ballEKF->getXEst(), ballEKF->getYEst(),
-                        ballEKF->getXVelocityEst(),
-                        ballEKF->getYVelocityEst());
+    if (vision->ball->isOn()){
+        sensors->BallVariance().update(ballEKF->getXEst(), ballEKF->getYEst(),
+                                       ballEKF->getXVelocityEst(),
+                                       ballEKF->getYVelocityEst());
+    }
 
 
     // Call main run() method of Brain
