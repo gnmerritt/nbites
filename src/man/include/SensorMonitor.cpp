@@ -13,6 +13,7 @@ static const float HIGH_BIN = 1500.0f;
 
 static const int ERRORS_BEFORE_REPORT = 15;
 
+
 SensorMonitor::SensorMonitor()
     :  noise(NoiseMeter<Butterworth>::ControlType(21, 60)),
        monitor(NUMBER_BINS, LOW_BIN, HIGH_BIN, LOG_DEFAULT),
