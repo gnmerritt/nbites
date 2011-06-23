@@ -112,6 +112,8 @@ public:
     void printBlob(Blob b);
     void paintRun(int x,int y, int h, int c);
     void drawRun(const run& run, int c);
+
+
 #ifdef OFFLINE
     void setDebugBall(bool debugBall) {BALLDEBUG = debugBall;}
     void setDebugBallDistance(bool debug) {BALLDISTDEBUG = debug;}

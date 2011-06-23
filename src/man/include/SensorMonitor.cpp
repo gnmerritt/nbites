@@ -9,9 +9,10 @@
 static const bool LOG_DEFAULT = true;
 static const int NUMBER_BINS = 30;
 static const float LOW_BIN = 0.0001f;
-static const float HIGH_BIN = 100.0f;
+static const float HIGH_BIN = 1500.0f;
 
 static const int ERRORS_BEFORE_REPORT = 15;
+
 
 SensorMonitor::SensorMonitor()
     :  noise(NoiseMeter<Butterworth>::ControlType(21, 60)),

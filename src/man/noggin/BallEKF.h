@@ -33,6 +33,7 @@ public:
     // Update functions
     void updateModel(RangeBearingMeasurement  ball, PoseEst p);
     void reset();
+
     // Getters
     /**
      * @return The current estimate of the ball x position
@@ -88,7 +89,7 @@ public:
     /**
      * @param val The new estimate of the ball x velocity
      */
-    void setXVelocityEst(float val) { xhat_k(2) = val; }
+    void setXVelocityEst(float val) { xhat_k(2) = val;}
 
     /**
      * @param val The new estimate of the ball y velocity

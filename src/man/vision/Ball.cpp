@@ -1136,6 +1136,8 @@ void Ball::setBallInfo(int w, int h, VisualBall *thisBall, estimate e) {
 	  ORANGE_BALL_RADIUS,
 	  thisBall->getRadius(),
 	  ORANGE_BALL_RADIUS).dist<<endl;*/
+
+
 }
 
 /*
