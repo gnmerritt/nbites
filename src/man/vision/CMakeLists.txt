@@ -58,6 +58,7 @@ INCLUDE_DIRECTORIES( ${NBCOMMON_INCLUDE_DIR}
 ############################ PROJECT SOURCES FILES
 # Add here source files needed to compile this project
 SET( VISION_SRCS Ball
+     		 BallMonitor
                  Blob
                  Blobs
                  ConcreteCorner

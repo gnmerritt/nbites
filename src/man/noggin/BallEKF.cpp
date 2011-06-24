@@ -172,6 +172,7 @@ void BallEKF::updateModel(RangeBearingMeasurement  ball, PoseEst p)
         cout << "\tBallEKF reset to " << *this << endl;
         cout << "\tObservation was: " << ball << endl;
     }
+
 }
 
 /**
@@ -322,6 +323,8 @@ void BallEKF::beforeCorrectionFinish(void)
 /**
  * Method to ensure that the ball estimate does have any unrealistic values
  */
+
+// WE DONT USE THIS?
 void BallEKF::limitAPrioriEst()
 {
     if(xhat_k_bar(2) > VELOCITY_EST_MAX) {
@@ -507,6 +510,8 @@ void BallEKF::limitPosteriorUncert()
 /**
  * Method to use the estimate ellipse to intelligently clip the ball estimate
  */
+
+/// WE DONT USE THIS?
 void BallEKF::clipBallEstimate()
 {
     // Limit our X estimate

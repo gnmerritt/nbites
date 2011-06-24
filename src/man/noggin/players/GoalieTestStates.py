@@ -33,7 +33,7 @@ def gameSet(player):
 
 def gamePlaying(player):
     player.walkPose()
-    return player.goNow('testDX')
+    return player.goNow('testHeat')
 
 def gamePenalized(player):
     angles = player.brain.sensors.angles
@@ -50,6 +50,12 @@ def gamePenalized(player):
         print " "
 
     return player.stay()
+
+def testHeat(player):
+    ball = player.brain.ball
+
+    if ball.heat > 15 :
+        player.brain.speech.say("Save")
 
 def testDive(player):
     if player.firstFrame():

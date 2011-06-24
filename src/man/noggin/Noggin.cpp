@@ -53,7 +53,7 @@ Noggin::Noggin (shared_ptr<Profiler> p, shared_ptr<Vision> v,
 #   ifdef DEBUG_NOGGIN_INITIALIZATION
     printf("Noggin::initializing\n");
 #   endif
-    
+
     // Initialize the interpreter and C python extensions
     initializePython();
 
@@ -253,7 +253,20 @@ void Noggin::runStep ()
     PROF_ENTER(profiler, P_LOC);
     updateLocalization();
     PROF_EXIT(profiler, P_LOC);
+
+    if (vision->ball->isOn()){
+        sensors->BallVariance().update(vision->ball->getX(),
+                                       vision->ball->getY(),
+                                       vision->ball->getDistance());
+    }
+
 #   endif //RUN_LOCALIZATION
+
+    if (vision->ball->isOn()){
+        sensors->BallVariance().update(ballEKF->getXEst(), ballEKF->getYEst(),
+                                       ballEKF->getXVelocityEst(),
+                                       ballEKF->getYVelocityEst());
+    }
 
 
     // Call main run() method of Brain
