@@ -42,6 +42,10 @@
 
 static const int numberOfBins = 25;
 
+/* this should stay pretty high, once a sensor reports itself as dead we stop
+   using it in motion/behaviors/etc so we don't want to do that lightly */
+static const int ERRORS_BEFORE_REPORT = 50;
+
 class SensorMonitor : public Filter
 {
 public:
@@ -58,7 +62,7 @@ public:
     void setVarianceBounds(float low, float high);
     void disableErrors() { reportErrors = false; }
 
-    bool isTrustworthy() { return sensorTrustworthy; }
+    bool isTrustworthy() { return seenErrors > ERRORS_BEFORE_REPORT; }
 
     static const int DONT_CHECK = -1;
 
@@ -80,7 +84,6 @@ private:
     SignalMonitor monitor;
     int steadyAtFrame;
     bool reportErrors; // warn if sensor variances exceed thresholds
-    bool sensorTrustworthy;
     float lowVariance, highVariance;
     int seenErrors;
 };

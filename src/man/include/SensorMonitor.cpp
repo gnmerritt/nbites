@@ -11,11 +11,6 @@ static const int NUMBER_BINS = 30;
 static const float LOW_BIN = 0.0001f;
 static const float HIGH_BIN = 1500.0f;
 
-/* this should stay pretty high, once a sensor reports itself as dead we stop
-   using it in motion/behaviors/etc so we don't want to do that lightly */
-static const int ERRORS_BEFORE_REPORT = 50;
-
-
 SensorMonitor::SensorMonitor()
     :  speech(),
        noise(NoiseMeter<Butterworth>::ControlType(21, 60)),
@@ -84,7 +79,6 @@ void SensorMonitor::Reset() {
     monitor.Reset();
     steadyAtFrame = NOT_STEADY;
     seenErrors = 0;
-    sensorTrustworthy = true;
 }
 
 void SensorMonitor::LogOutput() {
@@ -117,8 +111,6 @@ void SensorMonitor::reportSensorError() {
 
 	if (speech)
 	    speech->say("Problem with " + sensorName);
-
-	sensorTrustworthy = false;
     }
 }
 
