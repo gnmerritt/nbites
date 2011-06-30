@@ -285,20 +285,6 @@ def destWalking(nav):
 
     return nav.stay()
 
-# State to use with the setSteps method
-def stepping(nav):
-    """
-    We use this to go a specified number of steps.
-    This is different from walking.
-    """
-    if nav.firstFrame():
-        helper.step(nav, nav.stepX, nav.stepY, nav.stepTheta, nav.numSteps)
-
-    elif not nav.brain.motion.isWalkActive():
-        return nav.goNow("stopped")
-
-    return nav.stay()
-
 ### Stopping States ###
 def stop(nav):
     """
