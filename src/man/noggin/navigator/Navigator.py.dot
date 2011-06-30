@@ -1,0 +1,111 @@
+digraph Navigator {
+
+subgraph PFKStates {
+  positionForKick [label="positionForKick", fontcolor="blue"];
+
+}
+subgraph PlaybookPositionStates {
+  playbookWalk [label="playbookWalk", fontcolor="Brown"];
+  playbookAtPosition [label="playbookAtPosition", fontcolor="Brown"];
+  playbookOmni [label="playbookOmni", fontcolor="Brown"];
+
+}
+subgraph NavStates {
+  avoidObstacle [label="avoidObstacle", fontcolor="Crimson"];
+  stop [label="stop", fontcolor="Crimson"];
+  destWalking [label="destWalking", fontcolor="Crimson"];
+  walking [label="walking", fontcolor="Crimson"];
+  orbitPointThruAngle [label="orbitPointThruAngle", fontcolor="Crimson"];
+  orbitPoint [label="orbitPoint", fontcolor="Crimson"];
+  stopped [label="stopped", fontcolor="Crimson"];
+  avoidFrontObstacle [label="avoidFrontObstacle", fontcolor="Crimson"];
+  doingSweetMove [label="doingSweetMove", fontcolor="Crimson"];
+  walkStraightToPoint [label="walkStraightToPoint", fontcolor="Crimson"];
+  spinToWalkHeading [label="spinToWalkHeading", fontcolor="Crimson"];
+  avoidLeftObstacle [label="avoidLeftObstacle", fontcolor="Crimson"];
+  avoidRightObstacle [label="avoidRightObstacle", fontcolor="Crimson"];
+  spinToFinalHeading [label="spinToFinalHeading", fontcolor="Crimson"];
+
+}
+subgraph ChaseStates {
+  dribble [label="dribble", fontcolor="Green"];
+  walkSpinToBall [label="walkSpinToBall", fontcolor="Green"];
+  ballInMyBox [label="ballInMyBox", fontcolor="Green"];
+  chaseAroundBox [label="chaseAroundBox", fontcolor="Green"];
+  crossoverTowardsBall [label="crossoverTowardsBall", fontcolor="Green"];
+
+}
+positionForKick -> destWalking;
+playbookWalk -> playbookAtPosition;
+playbookWalk -> playbookOmni [style="dotted"];
+playbookWalk -> avoidObstacle [style="dotted"];
+playbookWalk -> playbookWalk;
+playbookAtPosition -> playbookOmni [style="dotted"];
+playbookAtPosition -> playbookAtPosition;
+playbookOmni -> playbookAtPosition;
+playbookOmni -> playbookWalk [style="dotted"];
+playbookOmni -> avoidObstacle [style="dotted"];
+playbookOmni -> playbookOmni;
+avoidObstacle -> avoidFrontObstacle;
+avoidObstacle -> avoidLeftObstacle;
+avoidObstacle -> avoidRightObstacle;
+stop -> stopped;
+stop -> stop;
+destWalking -> stop;
+destWalking -> destWalking;
+walking -> walking;
+orbitPointThruAngle -> stop;
+orbitPointThruAngle -> stop [style="dotted"];
+orbitPointThruAngle -> orbitPointThruAngle;
+orbitPoint -> orbitPoint;
+stopped -> stopped;
+avoidFrontObstacle -> avoidRightObstacle;
+avoidFrontObstacle -> avoidLeftObstacle;
+avoidFrontObstacle -> avoidFrontObstacle;
+doingSweetMove -> stopped;
+doingSweetMove -> doingSweetMove;
+walkStraightToPoint -> spinToFinalHeading [style="dotted"];
+walkStraightToPoint -> spinToWalkHeading [style="dotted"];
+walkStraightToPoint -> walkStraightToPoint;
+spinToWalkHeading -> walkStraightToPoint [style="dotted"];
+spinToWalkHeading -> spinToFinalHeading [style="dotted"];
+spinToWalkHeading -> spinToWalkHeading;
+avoidLeftObstacle -> avoidFrontObstacle;
+avoidLeftObstacle -> avoidRightObstacle;
+avoidLeftObstacle -> avoidLeftObstacle;
+avoidRightObstacle -> avoidFrontObstacle;
+avoidRightObstacle -> avoidLeftObstacle;
+avoidRightObstacle -> avoidRightObstacle;
+spinToFinalHeading -> stop [style="dotted"];
+spinToFinalHeading -> spinToFinalHeading;
+dribble -> ballInMyBox [style="dotted"];
+dribble -> chaseAroundBox [style="dotted"];
+dribble -> dribble;
+walkSpinToBall -> ballInMyBox [style="dotted"];
+walkSpinToBall -> chaseAroundBox [style="dotted"];
+walkSpinToBall -> avoidObstacle [style="dotted"];
+walkSpinToBall -> walkSpinToBall;
+ballInMyBox -> chase [style="dotted"];
+ballInMyBox -> ballInMyBox;
+chaseAroundBox -> walkSpinToBall;
+chaseAroundBox -> avoidObstacle;
+chaseAroundBox -> chaseAroundBox;
+crossoverTowardsBall -> walkSpinToBall [style="dotted"];
+crossoverTowardsBall -> ballInMyBox [style="dotted"];
+crossoverTowardsBall -> chaseAroundBox [style="dotted"];
+crossoverTowardsBall -> avoidObstacle [style="dotted"];
+crossoverTowardsBall -> crossoverTowardsBall;
+
+
+edge [style=invis];
+Legend [shape=box,width=2];
+PFKStates [shape=box,width=2,fontcolor="blue"];
+Legend -> PFKStates;
+PlaybookPositionStates [shape=box,width=2,fontcolor="Brown"];
+PFKStates -> PlaybookPositionStates;
+NavStates [shape=box,width=2,fontcolor="Crimson"];
+PlaybookPositionStates -> NavStates;
+ChaseStates [shape=box,width=2,fontcolor="Green"];
+NavStates -> ChaseStates;
+
+}

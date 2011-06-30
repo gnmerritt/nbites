@@ -147,18 +147,21 @@ def positionForKick(player):
         player.brain.nav.kickPosition(kick)
 
     # if we're getting close, decide whether to set another destination
-    if player.brain.nav.nearDestination and player.brain.nav.brain.ball.dist > 15:
-        print "Ball far away, setting new destination"
+    if player.brain.nav.nearDestination and player.brain.nav.brain.ball.dist > 20:
+        print 'Ball far away ({0}), setting new destination' \
+              .format(player.brain.nav.brain.ball.dist)
         player.brain.nav.kickPosition(kick)
 
     if transitions.shouldKick(player):
         return player.goNow('kickBallExecute')
+    """
     elif transitions.shouldFindBallKick(player):
         player.inKickingState = False
         return player.goLater('findBall')
     elif transitions.shouldChaseFromPositionForKick(player):
         player.inKickingState = False
         return player.goLater('chase')
+    """
 
     return player.stay()
 

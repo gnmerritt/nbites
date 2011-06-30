@@ -37,11 +37,14 @@ def positionForKick(nav):
     # we've either just started, or are close to our last destination
     # tell the robot where to go!
     if nav.firstFrame():
-        nav.destX = ball.relX - nav.kick.x_offset
+        nav.destX = ball.relX - nav.kick.x_offset - 3
         nav.destY = ball.relY - nav.kick.y_offset
 
         # @TODO check if rotating the other way is quicker?
-        nav.destTheta = nav.brain.my.h
+        # wait for heading to actually be there
+        #nav.destTheta = nav.brain.my.h
+
+        nav.destTheta = 0 # temporary!
 
         nav.newDestination = True
 

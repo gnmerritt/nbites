@@ -283,7 +283,10 @@ def destWalking(nav):
         helper.setDestination(nav, nav.destX, nav.destY, nav.destTheta, nav.destGain)
         nav.newDestination = False
 
-    if nav.currentCommand.framesRemaining() < 60:
+    framesLeft = nav.currentCommand.framesRemaining()
+
+    # the frames remaining counter is sometimes set to -1 initially
+    if framesLeft != -1 and framesLeft < 60:
         nav.nearDestination = True
 
     if nav.currentCommand.isDone():
@@ -298,9 +301,14 @@ def stop(nav):
     Wait until the walk is finished.
     """
     if nav.firstFrame():
+        # stop walk vectors
         helper.setSpeed(nav, 0, 0, 0)
         nav.walkX = nav.walkY = nav.walkTheta = \
                     nav.stepX = nav.stepY = nav.stepTheta = nav.numSteps = 0
+
+        # stop destination walking
+        nav.destX = nav.destY = nav.destTheta = 0
+        helper.setDestination(nav, 0, 0, 0, 1)
 
     if not nav.brain.motion.isWalkActive():
         return nav.goNow('stopped')

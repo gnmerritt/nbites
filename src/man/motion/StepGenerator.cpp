@@ -42,7 +42,7 @@ using namespace NBMath;
 //#define DEBUG_ZMP
 //#define DEBUG_ZMP_REF
 //#define DEBUG_COM_TRANSFORMS
-#define DEBUG_DESTINATION
+//#define DEBUG_DESTINATION
 
 StepGenerator::StepGenerator(shared_ptr<Sensors> s,
                              shared_ptr<NaoPose> p,
@@ -725,10 +725,8 @@ int StepGenerator::setDestination(float dest_x, float dest_y, float dest_theta,
     // use the maximum allowed x,y,theta
     if (dest_x > 0)
         speed_x = gain*gait->step[WP::MAX_VEL_X];
-    else {
+    else
         speed_x = gain*gait->step[WP::MIN_VEL_X];
-	printf("negative max speed: %f\n", speed_x);
-    }
 
     speed_y = gain*gait->step[WP::MAX_VEL_Y];
     speed_theta = gain*gait->step[WP::MAX_VEL_THETA];
