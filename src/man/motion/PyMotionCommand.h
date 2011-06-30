@@ -42,7 +42,7 @@ public:
 
     // Generic, exposed to Python for all commands
     int framesRemaining() const { return command->framesRemaining(); }
-    bool isDoneExecuting() const { return command->isDoneExecuting(); }
+    bool isDone() const { return command->isDoneExecuting(); }
     float timeRemaining() const { return command->timeRemaining(); }
 
 protected:
