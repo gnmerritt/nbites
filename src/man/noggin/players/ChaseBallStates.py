@@ -132,18 +132,23 @@ def decideKick(player):
 
 def positionForKick(player):
     """
-    State to align on the ball once we are near it
+    State to align on the ball once we are near it.
     """
-    if player.firstFrame():
-        kick = player.brain.kickDecider.getKick()
+    kick = player.brain.kickDecider.getKick()
 
-        if kick is None:
-            player.angleToOrbit = player.brain.kickDecider.kickInfo.orbitAngle
-            return player.goLater('orbitBall')
+    if player.firstFrame():
+        #if kick is None:
+        #    player.angleToOrbit = player.brain.kickDecider.kickInfo.orbitAngle
+        #    return player.goLater('orbitBall')
 
         player.inKickingState = True
 
         player.brain.tracker.trackBall()
+        player.brain.nav.kickPosition(kick)
+
+    # if we're getting close, decide whether to set another destination
+    if player.brain.nav.nearDestination and player.brain.nav.brain.ball.dist > 15:
+        print "Ball far away, setting new destination"
         player.brain.nav.kickPosition(kick)
 
     if transitions.shouldKick(player):

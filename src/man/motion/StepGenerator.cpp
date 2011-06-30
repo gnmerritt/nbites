@@ -725,8 +725,10 @@ int StepGenerator::setDestination(float dest_x, float dest_y, float dest_theta,
     // use the maximum allowed x,y,theta
     if (dest_x > 0)
         speed_x = gain*gait->step[WP::MAX_VEL_X];
-    else
+    else {
         speed_x = gain*gait->step[WP::MIN_VEL_X];
+	printf("negative max speed: %f\n", speed_x);
+    }
 
     speed_y = gain*gait->step[WP::MAX_VEL_Y];
     speed_theta = gain*gait->step[WP::MAX_VEL_THETA];
@@ -756,7 +758,7 @@ int StepGenerator::setDestination(float dest_x, float dest_y, float dest_theta,
 
 	// check if we're close enough to our destination to make it this step
 	if (abs(dest_x) > abs(speed_x))
-	    step_x = speed_x * sign(dest_x);
+	    step_x = speed_x;
 	else if (abs(dest_x) <= CLOSE_ENOUGH_XY)
 	    step_x = 0.0f;
 	else

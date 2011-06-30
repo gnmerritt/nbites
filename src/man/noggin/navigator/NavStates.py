@@ -277,11 +277,18 @@ def destWalking(nav):
     if nav.firstFrame() or nav.newDestination:
         if (nav.destGain < 0):
             nav.destGain = 1;
-            # @todo Leaving the actual interface of the destGain parameter unimplemented
-            # Wils, figure out how you want to set it up --Nathan
+
+        nav.nearDestination = False
 
         helper.setDestination(nav, nav.destX, nav.destY, nav.destTheta, nav.destGain)
         nav.newDestination = False
+
+    if nav.currentCommand.framesRemaining() < 60:
+        nav.nearDestination = True
+
+    if nav.currentCommand.isDone():
+        nav.nearDestination = True
+        return nav.goNow('stop')
 
     return nav.stay()
 

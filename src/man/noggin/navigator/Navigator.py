@@ -43,6 +43,7 @@ class Navigator(FSA.FSA):
         self.destY = 0
         self.destTheta = 0
         self.destGain = 1
+        self.nearDestination = False
 
         self.shouldAvoidObstacleLeftCounter = 0
         self.shouldAvoidObstacleRightCounter = 0
@@ -71,7 +72,7 @@ class Navigator(FSA.FSA):
         state to align on the ball once we are near it
         """
         self.kick = kick
-        self.switchTo('pfk_all')
+        self.switchTo('positionForKick')
 
     def positionPlaybook(self):
         """robot will walk to the x,y,h from playbook using a mix of omni,
@@ -87,7 +88,7 @@ class Navigator(FSA.FSA):
                not self.currentState == 'spinToFinalHeading':
             if not navTrans.atHeadingGoTo(self.brain.my, self.dest.h):
                 self.switchTo('spinToWalkHeading')
-            elif navTrans.atHeadingGoTo(self.brain.my, self.dest.h):
+            else:
                 self.switchTo('walkStraightToPoint')
 
     def stop(self):
