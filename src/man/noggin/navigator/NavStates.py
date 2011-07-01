@@ -280,13 +280,16 @@ def destWalking(nav):
 
         nav.nearDestination = False
 
+        if nav.destX + nav.destY + nav.destTheta == 0:
+            nav.goNow('stop')
+
         helper.setDestination(nav, nav.destX, nav.destY, nav.destTheta, nav.destGain)
         nav.newDestination = False
 
     framesLeft = nav.currentCommand.framesRemaining()
 
     # the frames remaining counter is sometimes set to -1 initially
-    if framesLeft != -1 and framesLeft < 60:
+    if framesLeft != -1 and framesLeft < 40:
         nav.nearDestination = True
 
     if nav.currentCommand.isDone():

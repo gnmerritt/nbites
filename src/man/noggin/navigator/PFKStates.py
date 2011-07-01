@@ -22,7 +22,6 @@ PFK_CLOSE_ENOUGH_Y = 2.7
 PFK_CLOSE_ENOUGH_THETA = 11
 
 
-
 def positionForKick(nav):
     """
     This state is called by player through Navigator::kickPosition(kick)
@@ -37,19 +36,30 @@ def positionForKick(nav):
     # we've either just started, or are close to our last destination
     # tell the robot where to go!
     if nav.firstFrame():
-        nav.destX = ball.relX - nav.kick.x_offset - 3
+        nav.destX = ball.relX - nav.kick.x_offset -1 # HACK!!!
         nav.destY = ball.relY - nav.kick.y_offset
 
         # @TODO check if rotating the other way is quicker?
         # wait for heading to actually be there
         #nav.destTheta = nav.brain.my.h
 
-        nav.destTheta = 0 # temporary!
+        nav.destTheta = ball.bearing # temporary until we have a global heading
+
+        # slow down as we get near the ball (max 80% speed)
+        if ball.dist < 40:
+            nav.destGain = (0.5 + (ball.dist / 40)) * .8
+        else:
+            nav.destGain = .8
 
         nav.newDestination = True
 
-        print 'Set new PFK destination of ({0},{1},{2})' \
-              .format(nav.destX, nav.destY, nav.destTheta)
+        print 'Ball rel X: {0} Y: {1} bearing: {2}' \
+              .format(ball.relX, ball.relY, ball.bearing)
+
+        print 'Set new PFK destination of ({0},{1},{2},gain={3})' \
+              .format(nav.destX, nav.destY, nav.destTheta, nav.destGain)
+
+        nav.brain.speech.say("New destination")
 
         return nav.goNow('destWalking')
 

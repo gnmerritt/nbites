@@ -16,14 +16,16 @@ def chase(player):
     # Check in order of importance
     if transitions.shouldFindBall(player):
         return player.goNow('findBall')
+
     elif transitions.shouldKickOff(player):
         return player.goNow('kickOff')
+
     elif transitions.shouldSpinToBall(player):
         return player.goNow('spinToBall')
+
     elif transitions.shouldClaimBall(player):
         return player.goNow('claimBall')
-    elif transitions.shouldPositionForKick(player):
-        return player.goNow('decideKick')
+
     else:
         return player.goNow('approachBall')
 
